@@ -35,8 +35,17 @@ void Application::Load()
 	// Initialise all values in m_tiles array to a random
 	// value between 0 and 5 exclusive;
 	// -----------------------------------------------------
-	
 	// write your code here
+
+	/*for (int i = 0; i < (ROWS * COLS); i++)
+	{
+		m_tiles[i] = GetRandomValue(0, 5);
+	}*/
+
+	for (int i = 0; i < ROWS * COLS; i++)
+	{
+		m_tiles[i] = rand() % 6;
+	}
 
 	// -----------------------------------------------------
 }
@@ -54,11 +63,13 @@ void Application::Update(float deltaTime)
 
 		// Task 3:
 		// TODO: Calculate row and col index based on the mouse positon
-		int rowIndex = 0; 
-		int colIndex = 0;
+		int rowIndex = mousePos.x / m_tileWidth + 1; 
+		int colIndex = mousePos.y / m_tileHeight;
+
+		DrawCircle(rowIndex, colIndex, 10, RED);
 
 		// TODO: calculate the index of the tile clicked on based on the row/col index
-		int tileIndex = 0;
+		int tileIndex = colIndex * COLS + rowIndex;
 
 		m_tiles[tileIndex] += 1;
 		if (m_tiles[tileIndex] >= 5)
@@ -69,7 +80,7 @@ void Application::Update(float deltaTime)
 void Application::Draw()
 {
 	BeginDrawing();
-	ClearBackground(RAYWHITE);
+	ClearBackground(BLACK);
 
 	// Task2:
 	// use a nested loop to iterate over rows and columns
@@ -81,12 +92,23 @@ void Application::Draw()
 	// 	   We have created a helper function you can use "GetTileColor"
 	// --------------------------------------------------------------------
 	// write your code here
-	float xPos = 0;
-	float yPos = 0;
-	Color color = GetTileColor(1); // pass in the tilevalue
+	int colorIncrement = 0;
+	for (int i = 0; i < ROWS; i++)
+	{
+		float yPos = i * m_tileHeight;
 
-	DrawRectangle(xPos, yPos, m_tileWidth, m_tileHeight, color);
+		for (int j = 0; j < COLS; j++)
+		{
+			colorIncrement++;
+			float xPos = j * m_tileWidth;
 
+			Color color = GetTileColor(m_tiles[colorIncrement]); // pass in the tilevalue
+
+			DrawRectangle(xPos, yPos, m_tileWidth, m_tileHeight, color);
+		}
+	}
+
+	
 	// --------------------------------------------------------------------
 
 	EndDrawing();
