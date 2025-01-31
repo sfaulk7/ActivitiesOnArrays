@@ -10,7 +10,7 @@ void TestResult(const int* result, int* const expected);
 int main(int argc, char** argv)
 {
 	const int NUM_ITEMS = 8;
-	int arr1[NUM_ITEMS] = { 1, 3, 5, 7, 9, 11, 13, 15 };
+	int arr1[NUM_ITEMS] = { -5, -2, 5, 7, 9, 11, 1234, 74351 };
 
 	// The numbers in the array are assumed to be sorted
 	// search for the values 9, 1, 15, 0
@@ -18,8 +18,8 @@ int main(int argc, char** argv)
 	std::cout << "Problem 3: Binary Search\n" << std::endl;
 
 	TestResult( BinarySearch(arr1, NUM_ITEMS, 9),  &arr1[4]   );
-	TestResult( BinarySearch(arr1, NUM_ITEMS, 1),  &arr1[0]   );
-	TestResult( BinarySearch(arr1, NUM_ITEMS, 15), &arr1[7]   );
+	TestResult( BinarySearch(arr1, NUM_ITEMS, -5),  &arr1[0]   );
+	TestResult( BinarySearch(arr1, NUM_ITEMS, 74351), &arr1[7]   );
 	TestResult( BinarySearch(arr1, NUM_ITEMS, 0),  nullptr    );
 	TestResult( BinarySearch(arr1, NUM_ITEMS, 16), nullptr    );
 
@@ -51,17 +51,26 @@ const int* BinarySearch(const int* arr, int count, int searchVal)
 	//	- Return: nullptr if the value is not found
 	//  - Return: pointer to the found value in the array
 	
-	int numberCount = 0;
+	int left = 0;
+	int right = count - 1;
 
-	for (int i = 0; i < count; i++)
+	while (left <= right)
 	{
+		int middle = (left + right) / 2;
 
-		int currentNumber = arr[i];
-		if (currentNumber == searchVal)
+		if (arr[middle] == searchVal)
 		{
-			numberCount = currentNumber;
-			return &arr[i];
+			return &arr[middle];
+		}
+		if (arr[middle] < searchVal)
+		{
+			left = middle + 1;
+		}
+		if (arr[middle] > searchVal)
+		{
+			right = middle - 1;
 		}
 	}
+
 	return nullptr;
 }

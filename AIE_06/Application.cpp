@@ -63,7 +63,7 @@ void Application::Update(float deltaTime)
 
 		// Task 3:
 		// TODO: Calculate row and col index based on the mouse positon
-		int rowIndex = mousePos.x / m_tileWidth + 1; 
+		int rowIndex = mousePos.x / m_tileWidth + 1;
 		int colIndex = mousePos.y / m_tileHeight;
 
 		DrawCircle(rowIndex, colIndex, 10, RED);

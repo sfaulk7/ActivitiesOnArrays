@@ -9,7 +9,7 @@ int CountOccurrencesOfValue(const int* arr, int count, int search);
 int main(int argc, char** argv)
 {
 	const int NUM_NUMBERS = 10;
-	int numbers[NUM_NUMBERS] = { 10, 20, 30, 40, 50, 10, 20, 30, 40, 50 };
+	int numbers[NUM_NUMBERS] = { 10, 20, 30, -534, 50, 10, 234098657, 30, 40, 50 };
 
 	// In C++, an array is simply a pointer to the first value
 	// when passing an array through a function parameter, we loose the length information
@@ -20,8 +20,8 @@ int main(int argc, char** argv)
 
 	std::cout << "Problem 2: Passing arrays to functions\n" << std::endl;
 
-	std::cout << "Expected: 10 - Got: " << MinValue(numbers, NUM_NUMBERS) << std::endl;
-	std::cout << "Expected: 50 - Got: " << MaxValue(numbers, NUM_NUMBERS) << std::endl;
+	std::cout << "Expected: -534 - Got: " << MinValue(numbers, NUM_NUMBERS) << std::endl;
+	std::cout << "Expected: 234098657 - Got: " << MaxValue(numbers, NUM_NUMBERS) << std::endl;
 	std::cout << "Expected: 2 - Got: " << CountOccurrencesOfValue(numbers, NUM_NUMBERS, 10) << std::endl;
 	std::cout << "Expected: 0 - Got: " << CountOccurrencesOfValue(numbers, NUM_NUMBERS, 8) << std::endl;
 
@@ -35,7 +35,7 @@ int MinValue(const int* arr, int count)
 {
 	// TODO: loop through the array, return the smallest value
 
-	int smallestNumber = 100;
+	int smallestNumber = arr[1];
 
 	for (int i = 0; i < count; i++)
 	{
@@ -54,7 +54,7 @@ int MaxValue(const int* arr, int count)
 {
 	// TODO: loop through the array, return the largest value
 
-	int biggestNumber = 0;
+	int biggestNumber = arr[1];
 
 	for (int i = 0; i < count; i++)
 	{
